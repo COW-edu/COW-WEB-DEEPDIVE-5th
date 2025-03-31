@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { auth, provider } from './auth/firebase.ts';
 import { signInWithPopup, signOut } from 'firebase/auth';
+import type { User } from 'firebase/auth'; //firebase type alias
 
 function App() {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    // 로그인 상태 감지 (앱 켰을 때 자동 로그인 유지)
     const unsubscribe = auth.onAuthStateChanged(setUser);
     return () => unsubscribe();
   }, []);
@@ -37,7 +37,7 @@ function App() {
             환영합니다, <strong>{user.displayName}</strong>님!
           </p>
           <img
-            src={user.photoURL}
+            src={user?.photoURL ?? ''}
             alt="프로필"
             className="w-16 h-16 rounded-full mx-auto mb-4"
           />
