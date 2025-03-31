@@ -7,7 +7,7 @@ const router = createBrowserRouter([
     element: <NotFoundPage></NotFoundPage>,
   },
   {
-    path: '/',
+    path: '/home',
     element: <Homepage></Homepage>,
   },
 ]);
