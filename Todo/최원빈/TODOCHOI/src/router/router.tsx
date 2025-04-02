@@ -1,17 +1,15 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import NotFoundPage from '../pages/NotFoundPage';
+// router/router.tsx
+import { createBrowserRouter } from 'react-router-dom';
 import Homepage from '../pages/contents/HomePage';
-const router = createBrowserRouter([
+import NotFoundPage from '../pages/NotFoundPage';
+
+export const router = createBrowserRouter([
   {
-    path: '*',
-    element: <NotFoundPage></NotFoundPage>,
-  },
-  {
-    path: '/home',
-    element: <Homepage></Homepage>,
+    path: '/',
+    element: '', // 공통 레이아웃
+    children: [
+      { path: '/', element: <Homepage /> },
+      { path: '*', element: <NotFoundPage /> },
+    ],
   },
 ]);
-
-export const AppRouter = () => {
-  return <RouterProvider router={router} />;
-};
