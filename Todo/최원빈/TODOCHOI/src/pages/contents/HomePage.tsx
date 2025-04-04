@@ -49,7 +49,7 @@ const Homepage = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center gap-6 bg-gray-100">
+    <div className="  flex-1 flex flex-col items-center justify-center gap-6 bg-gray-100">
       <h1 className="text-3xl font-bold">📝 TODOCHOI - GitHub 로그인</h1>
 
       {user ? (
