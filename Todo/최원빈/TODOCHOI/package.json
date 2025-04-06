@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "firebase": "^11.5.0",
+    "middleware": "^1.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.4.1",
