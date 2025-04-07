@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { auth, provider } from '../../auth/firebase.ts';
 import { signInWithPopup, signOut } from 'firebase/auth';
 import type { User } from 'firebase/auth'; //firebase type alias
-import { useNavigate } from 'react-router-dom';
 import LoadingSpinner from '../../components/atomic/LoadingSpinner';
 import AuthRedirect from '../../util/AuthRedirect.tsx';
 
@@ -11,22 +10,20 @@ const Homepage = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [loadingMessage, setLoadingMessage] = useState<string>('');
 
-  const navigate = useNavigate();
-
   useEffect(() => {
     const authListener = auth.onAuthStateChanged((user) => {
-      console.log('👀 auth 상태 변화:', user);
+      console.log('홈페이지 내부 auth 상태 변화:', user);
       setUser(user);
+      setLoading(false);
     });
 
     return () => authListener();
-  }, [navigate, user]);
+  }, []);
 
   const login = async () => {
     setLoadingMessage('로그인 처리 중입니다...');
     try {
       await signInWithPopup(auth, provider);
-      setLoading(false);
     } catch (err) {
       console.error('GitHub 로그인 실패:', err);
     }
@@ -36,13 +33,12 @@ const Homepage = () => {
     setLoadingMessage('로그아웃 처리 중입니다...');
     try {
       await signOut(auth);
-      setLoading(false);
     } catch (err) {
       console.error('로그아웃 실패:', err);
     }
   };
 
-  if (!loading) {
+  if (loading) {
     return <LoadingSpinner message={loadingMessage}></LoadingSpinner>;
   }
 

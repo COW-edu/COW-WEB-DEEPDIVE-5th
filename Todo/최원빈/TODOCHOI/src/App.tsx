@@ -22,7 +22,12 @@ function App() {
   }, [setUser, setAuthLoading]);
 
   if (isAuthLoading) {
-    return <LoadingSpinner message="자동 로그인 확인 중..." />;
+    return (
+      //
+      <div className="flex items-center justify-center h-screen">
+        <LoadingSpinner message="깃허브 자동 로그인 확인 중..." />
+      </div>
+    );
   }
 
   return (
