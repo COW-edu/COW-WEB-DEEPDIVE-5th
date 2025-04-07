@@ -39,15 +39,19 @@ const Homepage = () => {
   };
 
   if (loading) {
-    return <LoadingSpinner message={loadingMessage}></LoadingSpinner>;
+    return (
+      <>
+        <div className="flex justify-center items-center h-screen">
+          <LoadingSpinner message={loadingMessage}></LoadingSpinner>
+        </div>
+      </>
+    );
   }
 
   return (
     <>
       <AuthRedirect />
       <div className="  flex-1 flex flex-col items-center justify-center gap-6 bg-gray-100">
-        <h1 className="text-3xl font-bold">📝 TODOCHOI - GitHub 로그인</h1>
-
         {user ? (
           <div className="text-center">
             <p className="mb-4">
