@@ -1,4 +1,3 @@
-// App.tsx
 import { useEffect } from 'react';
 import { RouterProvider } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -8,7 +7,7 @@ import { router } from './router/router';
 import LoadingSpinner from './components/atomic/LoadingSpinner';
 
 function App() {
-  const { setUser, setAuthLoading, isAuthLoading, user } = useAuthStore();
+  const { setUser, setAuthLoading, isAuthLoading } = useAuthStore();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -22,15 +21,15 @@ function App() {
     return () => unsubscribe();
   }, [setUser, setAuthLoading]);
 
-  if (user) {
-    return <div>여기서 홈페이지 라우팅을 하고싶은데..</div>;
-  }
-
   if (isAuthLoading) {
     return <LoadingSpinner message="자동 로그인 확인 중..." />;
   }
 
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+    </>
+  );
 }
 
 export default App;
