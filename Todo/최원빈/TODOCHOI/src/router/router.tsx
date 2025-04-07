@@ -8,7 +8,7 @@ export const router = createBrowserRouter([
     path: '/',
     element: <MainLayout />, // 공통 레이아웃
     children: [
-      { path: '', element: <Homepage /> },
+      { path: 'home', element: <Homepage /> },
       { path: '*', element: <NotFoundPage /> },
     ],
   },
