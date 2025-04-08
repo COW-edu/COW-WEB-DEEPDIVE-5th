@@ -1,0 +1,13 @@
+addReviewers: true
+addAssignees: author
+
+reviewers:
+  - yuraup
+  - qwer0114
+  - swgvenghy
+  - ChoiTheCreator
+  - JangYEhoon00
+  - leesj0188
+  - ujinsim
+
+numberOfReviewers: 6
