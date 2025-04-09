@@ -216,11 +216,11 @@ num1 = num2; //O
 num2 = num1; //X
 ```
 
-![스크린샷 2025-04-02 오후 10.49.01.png](attachment:ac5537a0-919c-4021-a52a-0c241bb7c167:스크린샷_2025-04-02_오후_10.49.01.png)
+<img width="695" alt="Image" src="https://github.com/user-attachments/assets/38efa28b-267d-49bb-856c-6fe2c6ed8a02" />
 
 # 타입 계층도 파악
 
-![스크린샷 2025-04-02 오후 10.52.22.png](attachment:ac6cb465-e6d3-4b81-bee6-48778a89173d:스크린샷_2025-04-02_오후_10.52.22.png)
+<img width="945" alt="Image" src="https://github.com/user-attachments/assets/fdab14dc-0bc5-439b-a32f-61be77c309d5" />
 
 ### unknown이 모든 타입의 어머니, 전체 집합이다.
 
