@@ -23,7 +23,7 @@ function App() {
 
   if (isAuthLoading) {
     return (
-    //LoadingSpinner는 독립적인 컴포넌트라, 유동적으로 import하는 컴포넌트 내부에서 인라인 스타일링으로 바꿨습니다.
+      //LoadingSpinner는 독립적인 컴포넌트라, 유동적으로 import하는 컴포넌트 내부에서 인라인 스타일링으로 바꿨습니다.
       <div className="flex items-center justify-center h-screen">
         <LoadingSpinner message="깃허브 자동 로그인 확인 중..." />
       </div>

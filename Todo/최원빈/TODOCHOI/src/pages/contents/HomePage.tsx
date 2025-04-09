@@ -10,6 +10,9 @@ const Homepage = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [loadingMessage, setLoadingMessage] = useState<string>('');
 
+  //자동로그인은 좋다 이거야. 근데 너무 자동이라 사용자 입장에선 힘들듯
+  const [redirect, setRedirect] = useState<boolean>(false);
+
   useEffect(() => {
     const authListener = auth.onAuthStateChanged((user) => {
       console.log('홈페이지 내부 auth 상태 변화:', user);
@@ -38,6 +41,10 @@ const Homepage = () => {
     }
   };
 
+  const handleRedirect = () => {
+    setRedirect(true);
+  };
+
   if (loading) {
     return (
       <>
@@ -50,7 +57,7 @@ const Homepage = () => {
 
   return (
     <>
-      <AuthRedirect />
+      {redirect ? <AuthRedirect /> : null}
       <div className="  flex-1 flex flex-col items-center justify-center gap-6 bg-gray-100">
         {user ? (
           <div className="text-center">
@@ -62,12 +69,20 @@ const Homepage = () => {
               alt="프로필"
               className="w-16 h-16 rounded-full mx-auto mb-4"
             />
-            <button
-              onClick={logout}
-              className="px-6 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
-            >
-              로그아웃
-            </button>
+            <div className="flex flex-col justify-center items-center gap-3">
+              <button
+                onClick={logout}
+                className="px-6 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
+              >
+                로그아웃
+              </button>
+              <button
+                onClick={handleRedirect}
+                className="px-6 py-2 bg-blue-400 text-white rounded hover:bg-red-600 transition"
+              >
+                TODO 시작하기 !
+              </button>
+            </div>
           </div>
         ) : (
           <button
