@@ -4,6 +4,7 @@ import { signInWithPopup, signOut } from 'firebase/auth';
 import type { User } from 'firebase/auth';
 import LoadingSpinner from '../../components/atomic/LoadingSpinner';
 import AuthRedirect from '../../util/AuthRedirect.tsx';
+import Button from '../../components/atomic/Button.tsx';
 
 const Homepage = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -63,18 +64,12 @@ const Homepage = () => {
               className="w-16 h-16 rounded-full mx-auto mb-4 border"
             />
             <div className="flex flex-col gap-3">
-              <button
-                onClick={logout}
-                className="w-full px-4 py-2 rounded bg-red-500 text-white hover:bg-red-600 transition"
-              >
+              <Button onClick={() => setRedirect(true)} variant="primary">
+                시작하기
+              </Button>
+              <Button onClick={logout} variant="danger">
                 로그아웃
-              </button>
-              <button
-                onClick={() => setRedirect(true)}
-                className="w-full px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600 transition"
-              >
-                TODO 시작하기
-              </button>
+              </Button>
             </div>
           </>
         ) : (
