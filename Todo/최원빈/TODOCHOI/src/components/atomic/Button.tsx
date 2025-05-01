@@ -1,7 +1,7 @@
 import { ButtonHTMLAttributes } from 'react';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'danger';
+  variant?: 'primary' | 'danger' | 'append' | 'reduce' | 'black'; //literal type
 }
 const Button = ({
   variant = 'primary',
@@ -10,12 +10,18 @@ const Button = ({
 }: ButtonProps) => {
   const baseStyle =
     'px-4 py-2 rounded transition text-white font-medium focus:outline-none';
-  let varStyle = '';
-  if (variant === 'primary') varStyle = 'bg-blue-500 hover:bg-blue-600';
-  else if (variant == 'danger') varStyle = 'bg-red-500 hover:bg-red-600';
-  else if (variant == 'black') varStyle = 'bg-black hover:bg-gray-800';
 
-  const combinedClassName = `${baseStyle} ${varStyle}  ${className}`.trim();
+  const variantClassMap: Record<string, string> = {
+    primary: 'bg-blue-500 hover:bg-blue-600',
+    danger: 'bg-red-500 hover:bg-red-600',
+    black: 'bg-black hover:bg-gray-800',
+    append: 'bg-green-500 hover:bg-green-600',
+    reduce: 'bg-yellow-500 hover:bg-yellow-600',
+  };
+
+  const varStyle = variantClassMap[variant] ?? '';
+  const combinedClassName = `${baseStyle} ${varStyle} ${className}`.trim();
+
   return <button className={combinedClassName} {...props}></button>;
 };
 
