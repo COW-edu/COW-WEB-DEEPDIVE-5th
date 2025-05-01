@@ -17,6 +17,7 @@ const TodoPage = () => {
       text: todoContent,
     };
     setTodoList((prev) => [...prev, newTodo]);
+    setTodoContent('');
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,7 +37,11 @@ const TodoPage = () => {
         </h1>
         <div className="flex flex-col justify-center items-center">
           <div className="w-full max-w-6xl bg-cyan-100 px-6 py-4 rounded-md shadow flex justify-between items-center">
-            <Input variant="todo" onChange={handleInputChange}></Input>
+            <Input
+              value={todoContent}
+              variant="todo"
+              onChange={handleInputChange}
+            ></Input>
             <div className=" flex gap-2">
               <Button variant="append" onClick={addTodo}>
                 추가
