@@ -4,7 +4,7 @@ interface Props {
   name: string;
   size?: number;
 }
-
+// 타입 나누기 
 const SvgIcon = ({ name, size = 24 }: Props) => {
   let IconSrc: string | null = null;
   
