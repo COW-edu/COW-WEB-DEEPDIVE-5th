@@ -1,5 +1,5 @@
 const TodoPage = () => {
-  return <div></div>;
+  return <div>투두페이지입니다.</div>;
 };
 
 export default TodoPage;
