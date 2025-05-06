@@ -8,7 +8,6 @@ const TodoPage = () => {
     text: string;
   };
   const [todoList, setTodoList] = useState<todoListItems[]>([]);
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [todoContent, setTodoContent] = useState('');
 
   const addTodo = (): void => {
@@ -24,11 +23,10 @@ const TodoPage = () => {
     setTodoContent(e.target.value);
   };
 
-  const handleDeleteClick = (index: number) => {
-    setSelectedIndex(index);
+  const deleteTodo = (id: number): void => {
+    const filteredTodo = todoList.filter((todo) => todo.id != id);
+    setTodoList(filteredTodo);
   };
-
-  const deleteTodo = (): void => {};
   return (
     <main className="min-h-screen flex justify-center items-center bg-gray-100 dark:bg-gray-900 px-4">
       <div className="w-full max-w-7xl bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
@@ -46,14 +44,23 @@ const TodoPage = () => {
               <Button variant="append" onClick={addTodo}>
                 추가
               </Button>
-              <Button variant="reduce">삭제</Button>
+
               <Button variant="black">GitHub</Button>
             </div>
           </div>
           <div className="w-full bg-yellow-50 max-w-6xl">
             <div className="flex flex-col">
               {todoList.map((val) => (
-                <div key={val.id}>{val.text}</div>
+                <div key={val.id}>
+                  {val.text}
+                  <Button
+                    variant="reduce"
+                    // react law : At event give function not return value
+                    onClick={() => deleteTodo(val.id)}
+                  >
+                    삭제
+                  </Button>
+                </div>
               ))}
             </div>
           </div>
