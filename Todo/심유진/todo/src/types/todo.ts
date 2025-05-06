@@ -1,20 +1,25 @@
-type Todo = {
+export type todo = {
   title: string;
   id: number;
   isCompleted: boolean;
   isEditing: boolean;
 };
 
-type TodoList = {
-  todos: Todo[];
+export type todoList = {
+  todos: todo[];
 };
 
-type TodoInput = {
+export type todoInput = {
   content: string;
 };
 
-type TodoFilter = "All" | "Active" | "Completed";
+export type todoFilter = "All" | "Active" | "Completed";
 
-type TodosFilter = {
-  state: TodoFilter;
+export type todosFilter = {
+  state: todoFilter;
+};
+
+export type todoAction = {
+  type: string;
+  payload: todo;
 };
