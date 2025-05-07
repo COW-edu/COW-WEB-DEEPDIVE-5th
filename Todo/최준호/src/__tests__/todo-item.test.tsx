@@ -1,56 +1,64 @@
-import { describe, it, expect } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { describe, it, expect, beforeEach } from "vitest";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import TodoItem from "@/ui/todo-item";
 import { vi } from "vitest";
 import { TodoItemType } from "@/types/todo";
 
-describe("todo item 테스트", () => {
-  it("todo 내용과 완료버튼, 삭제 버튼을 보여준다.", () => {
-    const item: TodoItemType = {
-      id: Date.now(),
-      content: "test case 1",
-      done: false,
-    };
-    render(<TodoItem item={item} />);
+describe("TodoItem 컴포넌트", () => {
+  let item: TodoItemType;
+  let onDelete: ReturnType<typeof vi.fn>;
+  let onToggle: ReturnType<typeof vi.fn>;
 
-    const todoText = screen.getByText(item.content);
-    const deleteButton = screen.getByRole("button", { name: "x" });
-    const toggleButton = screen.getByRole("button", { name: "완료" });
+  const renderItem = (overrides?: Partial<TodoItemType>) => {
+    const propsItem = { ...item, ...overrides };
+    render(
+      <TodoItem item={propsItem} onDelete={onDelete} onToggle={onToggle} />
+    );
+  };
 
-    expect(todoText).toBeInTheDocument();
-    expect(deleteButton).toBeInTheDocument();
-    expect(toggleButton).toBeInTheDocument();
+  beforeEach(() => {
+    item = { id: Date.now(), content: "할 일 테스트", done: false };
+    onDelete = vi.fn();
+    onToggle = vi.fn();
   });
 
-  it("done=true 이면 완료 버튼이 '취소'로, 텍스트에 취소선이 적용된다", () => {
-    const item: TodoItemType = { id: 3, content: "done item", done: true };
-    render(<TodoItem item={item} onDelete={() => {}} onToggle={() => {}} />);
+  it("기본 상태: 내용, '완료' 버튼, '삭제' 버튼을 렌더링한다", () => {
+    renderItem();
 
-    expect(screen.getByRole("button", { name: "취소" })).toBeInTheDocument();
-    const text = screen.getByText(item.content);
-    expect(text).toHaveStyle({ textDecoration: "line-through" });
+    expect(screen.getByText(item.content)).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "완료" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "삭제" })).toBeInTheDocument();
+
+    expect(screen.getByText(item.content)).not.toHaveStyle({
+      textDecoration: "line-through",
+    });
   });
 
-  it("삭제 버튼 클릭 시 onDelete(id)가 호출된다", () => {
-    const item: TodoItemType = { id: 1, content: "test", done: false };
-    const onDelete = vi.fn();
-    render(<TodoItem item={item} onDelete={onDelete} onToggle={() => {}} />);
+  describe("완료 상태(done=true)일 때", () => {
+    beforeEach(() => {
+      renderItem({ done: true, content: "완료된 할 일" });
+    });
 
-    const deleteButton = screen.getByRole("button", { name: "x" });
-    fireEvent.click(deleteButton);
+    it("버튼 텍스트가 '취소'로 바뀌고, 텍스트에 취소선이 적용된다", () => {
+      expect(screen.getByRole("button", { name: "취소" })).toBeInTheDocument();
+      expect(screen.getByText("완료된 할 일")).toHaveStyle({
+        textDecoration: "line-through",
+      });
+    });
+  });
 
-    expect(onDelete).toHaveBeenCalledTimes(1);
+  it("삭제 버튼 클릭 시 onDelete(item.id)를 호출한다", async () => {
+    renderItem();
+    await userEvent.click(screen.getByRole("button", { name: "삭제" }));
+    expect(onDelete).toHaveBeenCalledOnce();
     expect(onDelete).toHaveBeenCalledWith(item.id);
   });
 
-  it("완료 버튼 클릭 시 onToggle(id)가 호출된다", () => {
-    const item: TodoItemType = { id: 2, content: "foo", done: false };
-    const onToggle = vi.fn();
-    render(<TodoItem item={item} onDelete={() => {}} onToggle={onToggle} />);
-
-    const toggleButton = screen.getByRole("button", { name: "완료" });
-    fireEvent.click(toggleButton);
-
+  it("완료 버튼 클릭 시 onToggle(item.id)를 호출한다", async () => {
+    renderItem();
+    await userEvent.click(screen.getByRole("button", { name: "완료" }));
+    expect(onToggle).toHaveBeenCalledOnce();
     expect(onToggle).toHaveBeenCalledWith(item.id);
   });
 });
