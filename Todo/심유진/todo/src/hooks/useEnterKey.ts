@@ -1,1 +1,22 @@
-// Enter 키를 눌렀을 때 특정 작업을 실행하는 커스텀 훅
+import { useEffect } from "react";
+
+function useEnterKey(callback: () => void) {
+  useEffect(() => {
+    const handleKeyUp = (event: KeyboardEvent) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        callback();
+      }
+    };
+
+    window.addEventListener("keyup", handleKeyUp);
+
+    return () => {
+      window.removeEventListener("keyup", handleKeyUp);
+    };
+  }, [callback]);
+
+  return;
+}
+
+export default useEnterKey;
