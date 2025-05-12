@@ -1,13 +1,10 @@
 const Footer = () => {
   return (
-    <div className="flex flex-col text-end ">
-      <div className="bg-blue-500 p-2 text-gray-300  font-bold ">
-        Made By CHOITHECREATOR
+    <footer className="w-full py-3 px-4 bg-gray-100 dark:bg-gray-900">
+      <div className="text-end text-gray-500 dark:text-gray-400 text-sm font-semibold">
+        Made by CHOITHECREATOR
       </div>
-      <div className="bg-blue-300 p-1.5 text-white font-bond">
-        이제 좀 일정을 관리해보는게 어떨까?
-      </div>
-    </div>
+    </footer>
   );
 };
 
