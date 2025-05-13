@@ -13,10 +13,10 @@ const Input = ({ variant, className = '', message, ...props }: InputProps) => {
 
   if (variant === 'primary') {
     inputClassName =
-      'border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500';
+      'w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500';
   } else if (variant === 'todo') {
     inputClassName =
-      'border-b border-gray-400 px-2 py-1 focus:outline-none focus:border-blue-400 bg-transparent';
+      'w-full border-b border-gray-400 px-2 py-1 focus:outline-none focus:border-blue-400 bg-transparent';
   }
 
   const combinedClassName = `${inputClassName} ${className}`.trim();
