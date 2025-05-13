@@ -51,7 +51,7 @@ const TodoPage = () => {
           <div className="w-full bg-yellow-50 max-w-6xl">
             <div className="flex flex-col">
               {todoList.map((val) => (
-                <div key={val.id}>
+                <div className="flex justify-between" key={val.id}>
                   {val.text}
                   <Button
                     variant="reduce"
