@@ -2,11 +2,7 @@ import { useState } from 'react';
 import { Plus, Trash2, Github } from 'lucide-react';
 import Button from '../../components/atomic/Button';
 import Input from '../../components/atomic/Input';
-
-type TodoListItem = {
-  id: number;
-  text: string;
-};
+import { TodoListItem } from '../../types/todoType';
 
 const TodoPage = () => {
   const [todoList, setTodoList] = useState<TodoListItem[]>([]);
