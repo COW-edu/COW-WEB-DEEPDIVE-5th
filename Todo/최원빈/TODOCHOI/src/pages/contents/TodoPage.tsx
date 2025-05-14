@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Plus, Trash2, Github } from 'lucide-react';
 import Button from '../../components/atomic/Button';
 import Input from '../../components/atomic/Input';
@@ -9,6 +9,30 @@ import { Check } from 'lucide-react';
 const TodoPage = () => {
   const [todoList, setTodoList] = useState<TodoListItem[]>([]);
   const [todoContent, setTodoContent] = useState('');
+
+  const [completedTodoList, setCompletedTodoList] = useState<TodoListItem[]>(
+    []
+  );
+  const [notCompletedTodoList, setNotCompletedTodoList] = useState<
+    TodoListItem[]
+  >([]);
+
+  useEffect(() => {
+    const completedList = todoList.filter((item) => item.completed);
+    setCompletedTodoList(completedList);
+  }, [todoList]);
+
+  useEffect(() => {
+    const notCompletedList = todoList.filter((item) => !item.completed);
+    setNotCompletedTodoList(notCompletedList);
+  }, [todoList]);
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      console.log('엔터 실행');
+      addTodo();
+    }
+  };
 
   const addTodo = (): void => {
     if (todoContent.trim() === '') return;
@@ -33,6 +57,14 @@ const TodoPage = () => {
     );
   };
 
+  const handleTextClick = (id: number): void => {
+    console.log('체크바뀜');
+    setTodoList((prev) =>
+      prev.map((item) =>
+        item.id === id ? { ...item, completed: !item.completed } : item
+      )
+    );
+  };
   return (
     <main className="min-h-screen flex justify-center items-center bg-gray-100 dark:bg-gray-900 px-4 py-12">
       <div className="w-full max-w-6xl bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 space-y-6">
@@ -44,6 +76,7 @@ const TodoPage = () => {
           <Input
             value={todoContent}
             variant="todo"
+            onKeyDown={handleKeyDown}
             onChange={handleInputChange}
             className="flex-1  px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="할 일을 입력하세요..."
@@ -76,7 +109,14 @@ const TodoPage = () => {
                 </Checkbox.Indicator>
               </Checkbox.Root>
 
-              <span className="text-gray-800 font-medium">{todo.text}</span>
+              <span
+                className={`text-gray-800 font-medium ${
+                  todo.completed ? 'line-through text-red-400' : null
+                }`}
+                onClick={() => handleTextClick(todo.id)}
+              >
+                {todo.text}
+              </span>
               <Button variant="reduce" onClick={() => deleteTodo(todo.id)}>
                 <Trash2 className="w-4 h-4 mr-1" />
               </Button>
