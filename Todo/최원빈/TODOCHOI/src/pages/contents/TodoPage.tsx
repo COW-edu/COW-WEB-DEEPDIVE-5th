@@ -3,6 +3,8 @@ import { Plus, Trash2, Github } from 'lucide-react';
 import Button from '../../components/atomic/Button';
 import Input from '../../components/atomic/Input';
 import { TodoListItem } from '../../types/todoType';
+import * as Checkbox from '@radix-ui/react-checkbox';
+import { Check } from 'lucide-react';
 
 const TodoPage = () => {
   const [todoList, setTodoList] = useState<TodoListItem[]>([]);
@@ -10,7 +12,7 @@ const TodoPage = () => {
 
   const addTodo = (): void => {
     if (todoContent.trim() === '') return;
-    const newTodo = { id: Date.now(), text: todoContent };
+    const newTodo = { id: Date.now(), text: todoContent, completed: false };
     setTodoList((prev) => [...prev, newTodo]);
     setTodoContent('');
   };
@@ -21,6 +23,14 @@ const TodoPage = () => {
 
   const deleteTodo = (id: number): void => {
     setTodoList((prev) => prev.filter((todo) => todo.id !== id));
+  };
+
+  const toggleTodo = (id: number): void => {
+    setTodoList((prev) =>
+      prev.map((item) =>
+        item.id === id ? { ...item, completed: !item.completed } : item
+      )
+    );
   };
 
   return (
@@ -56,6 +66,16 @@ const TodoPage = () => {
               key={todo.id}
               className="flex justify-between items-center bg-yellow-100 dark:bg-yellow-200 rounded-lg px-4 py-3 shadow"
             >
+              <Checkbox.Root
+                className="w-5 h-5 bg-white border rounded flex  shadow"
+                checked={todo.completed}
+                onCheckedChange={() => toggleTodo(todo.id)}
+              >
+                <Checkbox.Indicator>
+                  <Check className="w-4 h-4 text-green-500" />
+                </Checkbox.Indicator>
+              </Checkbox.Root>
+
               <span className="text-gray-800 font-medium">{todo.text}</span>
               <Button variant="reduce" onClick={() => deleteTodo(todo.id)}>
                 <Trash2 className="w-4 h-4 mr-1" />
