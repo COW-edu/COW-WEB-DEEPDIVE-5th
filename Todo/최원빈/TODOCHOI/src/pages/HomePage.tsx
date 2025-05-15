@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { auth, provider } from '../../auth/firebase.ts';
+import { auth, provider } from '../auth/firebase.ts';
 import { signInWithPopup, signOut } from 'firebase/auth';
 import type { User } from 'firebase/auth';
-import LoadingSpinner from '../../components/atomic/LoadingSpinner';
-import AuthRedirect from '../../util/AuthRedirect.tsx';
-import Button from '../../components/atomic/Button.tsx';
+import LoadingSpinner from '../components/atomic/LoadingSpinner.tsx';
+import AuthRedirect from '../util/AuthRedirect.tsx';
+import Button from '../components/atomic/Button.tsx';
 
 const Homepage = () => {
   const [user, setUser] = useState<User | null>(null);

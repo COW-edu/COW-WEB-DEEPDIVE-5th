@@ -10,26 +10,10 @@ import { Check } from 'lucide-react';
 const TodoPage = () => {
   const [todoList, setTodoList] = useState<TodoListItem[]>([]);
   const [todoContent, setTodoContent] = useState('');
-  const [tabContent, setContent] = useState<any>(false);
+  const [showCompleteted, setShowCompleted] = useState<boolean>();
+  const [showNotCompleted, setShowNotCompleted] = useState<boolean>();
 
-  // const [completedTodoList, setCompletedTodoList] = useState<TodoListItem[]>(
-  //   []
-  // );
-  // const [notCompletedTodoList, setNotCompletedTodoList] = useState<
-  //   TodoListItem[]
-  // >([]);
-
-  // useEffect(() => {
-  //   const completedList = todoList.filter((item) => item.completed);
-  //   setCompletedTodoList(completedList);
-  // }, [todoList]);
-
-  // useEffect(() => {
-  //   const notCompletedList = todoList.filter((item) => !item.completed);
-  //   setNotCompletedTodoList(notCompletedList);
-  // }, [todoList]);
-
-  //todoList로 부터 파생되는 파생상태를 굳이 만들필요가 없어 보임
+  //파생 상태
   const completedTodoList = todoList.filter((item) => item.completed);
   const notCompletedTodoList = todoList.filter((item) => !item.completed);
 
@@ -61,6 +45,16 @@ const TodoPage = () => {
         item.id === id ? { ...item, completed: !item.completed } : item
       )
     );
+  };
+
+  const handleCompleteTabClick = () => {
+    setShowCompleted((prev) => !prev);
+    console.log(showCompleteted);
+  };
+
+  const handleNotCompleteTabClick = () => {
+    setShowNotCompleted((prev) => !prev);
+    console.log(showNotCompleted);
   };
 
   const handleTextClick = (id: number): void => {
@@ -102,12 +96,14 @@ const TodoPage = () => {
           <Tabs.Root defaultValue="all" className="w-full ">
             <Tabs.List className="flex space-x-4 mb-4">
               <Tabs.Trigger
+                onClick={handleCompleteTabClick}
                 value="completed"
                 className="px-4 py-2 rounded bg-gray-200 data-[state=active]:bg-blue-500 data-[state=active]:text-white"
               >
                 완료
               </Tabs.Trigger>
               <Tabs.Trigger
+                onClick={handleNotCompleteTabClick}
                 value="incomplete"
                 className="px-4 py-2 rounded bg-gray-200 data-[state=active]:bg-blue-500 data-[state=active]:text-white"
               >
