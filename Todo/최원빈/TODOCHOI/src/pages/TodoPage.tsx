@@ -1,17 +1,17 @@
 import { useState } from 'react';
 import { Plus, Trash2, Github } from 'lucide-react';
-import Button from '../../components/atomic/Button';
-import Input from '../../components/atomic/Input';
-import { TodoListItem } from '../../types/todoType';
+
 import * as Checkbox from '@radix-ui/react-checkbox';
 import * as Tabs from '@radix-ui/react-tabs';
 import { Check } from 'lucide-react';
+import Button from '../components/atomic/Button';
+import Input from '../components/atomic/Input';
+import { TodoListItem } from '../types/todoType';
 
 const TodoPage = () => {
   const [todoList, setTodoList] = useState<TodoListItem[]>([]);
   const [todoContent, setTodoContent] = useState('');
-  const [showCompleteted, setShowCompleted] = useState<boolean>();
-  const [showNotCompleted, setShowNotCompleted] = useState<boolean>();
+  const [showTodoContent, setShowTodoContent] = useState('');
 
   //파생 상태
   const completedTodoList = todoList.filter((item) => item.completed);
@@ -47,14 +47,16 @@ const TodoPage = () => {
     );
   };
 
+  const handleAllTabClick = () => {
+    setShowTodoContent('all');
+  };
+
   const handleCompleteTabClick = () => {
-    setShowCompleted((prev) => !prev);
-    console.log(showCompleteted);
+    setShowTodoContent('complete');
   };
 
   const handleNotCompleteTabClick = () => {
-    setShowNotCompleted((prev) => !prev);
-    console.log(showNotCompleted);
+    setShowTodoContent('incomplete');
   };
 
   const handleTextClick = (id: number): void => {
@@ -95,6 +97,13 @@ const TodoPage = () => {
         <div className="flex flex-row justify-between">
           <Tabs.Root defaultValue="all" className="w-full ">
             <Tabs.List className="flex space-x-4 mb-4">
+              <Tabs.Trigger
+                onClick={handleAllTabClick}
+                value="all"
+                className="px-4 py-2 rounded bg-gray-200 data-[state=active]:bg-blue-500 data-[state=active]:text-white"
+              >
+                All
+              </Tabs.Trigger>
               <Tabs.Trigger
                 onClick={handleCompleteTabClick}
                 value="completed"
