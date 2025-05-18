@@ -21,7 +21,7 @@ const TodoList = ({
       {todoList.map((todo) => (
         <div
           key={todo.id}
-          className="flex justify-between items-center bg-y3ellow-100 dark:bg-yellow-200 rounded-lg px-4 py-3 shadow"
+          className="flex justify-between items-center bg-yellow-100 dark:bg-yellow-300 rounded-lg px-4 py-3 shadow"
         >
           <Checkbox.Root
             className="w-5 h-5 bg-white border rounded flex  shadow"
