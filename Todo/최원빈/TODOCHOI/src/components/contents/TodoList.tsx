@@ -2,7 +2,7 @@ import { TodoListItem } from '../../types/todoType';
 import * as Checkbox from '@radix-ui/react-checkbox';
 import { Trash2 } from 'lucide-react';
 import { Check } from 'lucide-react';
-import Button from '../../components/atomic/Button';
+import Button from '../atomic/Button';
 interface TodoListProps {
   todoList: TodoListItem[]; //조건으로 분기해야하는 todoList에 대한 고찰
   deleteTodo: (id: number) => void;

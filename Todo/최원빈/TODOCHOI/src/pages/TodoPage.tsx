@@ -6,18 +6,19 @@ import * as Tabs from '@radix-ui/react-tabs';
 import Button from '../components/atomic/Button';
 import Input from '../components/atomic/Input';
 import { TodoListItem } from '../types/todoType';
-import TodoList from './contents/TodoList';
+import TodoList from '../components/contents/TodoList';
 
 const TodoPage = () => {
   const [todoList, setTodoList] = useState<TodoListItem[]>([]);
   const [todoContent, setTodoContent] = useState('');
   const [showTodoContent, setShowTodoContent] = useState('all');
 
-  //파생 상태
+  //파생 상태라서 상태로 두는게, 아닌 필터함수로 상태 대신 객체화
   const completedTodoList = todoList.filter((item) => item.completed);
   const notCompletedTodoList = todoList.filter((item) => !item.completed);
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    e.preventDefault();
     if (e.key === 'Enter') {
       addTodo();
     }
@@ -77,7 +78,7 @@ const TodoPage = () => {
           <Input
             value={todoContent}
             variant="todo"
-            onKeyDown={handleKeyDown}
+            onKeyUp={handleKeyUp}
             onChange={handleInputChange}
             className="flex-1  px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="할 일을 입력하세요..."
