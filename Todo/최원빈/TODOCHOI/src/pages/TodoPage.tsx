@@ -1,8 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Plus, Github } from 'lucide-react';
-
 import * as Tabs from '@radix-ui/react-tabs';
-
 import Button from '../components/atomic/Button';
 import Input from '../components/atomic/Input';
 import { TodoListItem } from '../types/todoType';
@@ -67,11 +65,12 @@ const TodoPage = () => {
       )
     );
   };
+
   return (
     <main className="min-h-screen flex justify-center items-center bg-gray-100 dark:bg-gray-900 px-4 py-12">
       <div className="w-full max-w-6xl bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 space-y-6">
         <h1 className="text-3xl font-bold text-center text-gray-800 dark:text-white">
-          Developer Todo List
+          Todo List
         </h1>
 
         <div className="flex flex-row gap-4 items-center">
