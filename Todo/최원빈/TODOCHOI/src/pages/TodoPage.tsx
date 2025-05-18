@@ -7,7 +7,7 @@ import { Check } from 'lucide-react';
 import Button from '../components/atomic/Button';
 import Input from '../components/atomic/Input';
 import { TodoListItem } from '../types/todoType';
-import todoList from './contents/TodoList';
+import TodoList from './contents/TodoList';
 
 const TodoPage = () => {
   const [todoList, setTodoList] = useState<TodoListItem[]>([]);
@@ -71,7 +71,7 @@ const TodoPage = () => {
     <main className="min-h-screen flex justify-center items-center bg-gray-100 dark:bg-gray-900 px-4 py-12">
       <div className="w-full max-w-6xl bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 space-y-6">
         <h1 className="text-3xl font-bold text-center text-gray-800 dark:text-white">
-          🛠️ Developer Todo List
+          Developer Todo List
         </h1>
 
         <div className="flex flex-row gap-4 items-center">
@@ -125,12 +125,12 @@ const TodoPage = () => {
         <div className="space-y-3">
           {showTodoContent === 'all' ? (
             <div>
-              <todoList
+              <TodoList
                 todoList={todoList}
                 deleteTodo={deleteTodo}
                 toggleTodo={toggleTodo}
                 handleTextClick={handleTextClick}
-              ></todoList>
+              ></TodoList>
             </div>
           ) : (
             <div>
