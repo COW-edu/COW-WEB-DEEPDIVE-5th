@@ -1,4 +1,4 @@
-import { InputHTMLAttributes, useEffect, useRef } from 'react';
+import { InputHTMLAttributes, Ref } from 'react';
 
 //중요한 value 속성을 extend 했기에 굳이 한번 더 넣을 필요는 없다. (그러나 쓸 곳에서는 명시해야겠다.)
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -6,15 +6,19 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   message?: string;
   className?: string;
   value: string;
+  inputFocusRef: Ref<HTMLInputElement>;
 }
 
-const Input = ({ variant, className = '', message, ...props }: InputProps) => {
+//just ref 대신 forwardRef로 발전
+const Input = ({
+  variant,
+  inputFocusRef,
+  className = '',
+  message,
+  ...props
+}: InputProps) => {
   let inputClassName = '';
-  const inputfocusRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    inputfocusRef.current.focus();
-  }, []);
   if (variant === 'primary') {
     inputClassName =
       'w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500';
@@ -29,7 +33,7 @@ const Input = ({ variant, className = '', message, ...props }: InputProps) => {
     <div className="w-full">
       <input
         className={combinedClassName}
-        ref={inputfocusRef}
+        ref={inputFocusRef}
         {...props}
         type="text"
       />

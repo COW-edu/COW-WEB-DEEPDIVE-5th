@@ -12,6 +12,7 @@ interface TodoListProps {
 
 const TodoList = ({
   todoList,
+
   deleteTodo,
   toggleTodo,
   handleTextClick,

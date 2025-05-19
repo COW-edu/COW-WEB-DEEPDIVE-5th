@@ -11,6 +11,10 @@ const TodoPage = () => {
   const [todoContent, setTodoContent] = useState('');
   const [showTodoContent, setShowTodoContent] = useState('all');
 
+  const inputFocusRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    inputFocusRef.current?.focus();
+  }, []);
   //파생 상태라서 상태로 두는게, 아닌 필터함수로 상태 대신 객체화
   const completedTodoList = todoList.filter((item) => item.completed);
   const notCompletedTodoList = todoList.filter((item) => !item.completed);
@@ -77,6 +81,7 @@ const TodoPage = () => {
           <Input
             value={todoContent}
             variant="todo"
+            inputFocusRef={inputFocusRef}
             onKeyUp={handleKeyUp}
             onChange={handleInputChange}
             className="flex-1  px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
