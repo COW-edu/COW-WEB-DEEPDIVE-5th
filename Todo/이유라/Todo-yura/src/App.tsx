@@ -1,14 +1,15 @@
 import React from 'react';
 import { useState } from 'react';
-import ModeSwitch from './components/molecules/ModeSwitch';
+import ViewSwitch from './components/molecules/ViewSwitch';
 import Todo from './types/todo';
 import FilterType from './types/filter';
 import TodoPanel from './components/organisms/TodoPanel';
 import FarmPanel from './components/organisms/FarmPanel';
+import ViewMode from './types/viewMode';
 
 function App() {
   const [input, setInput] = useState('');
-  const [viewMode, setViewMode] = useState('list');
+  const [viewMode, setViewMode] = useState<ViewMode>('list');
   const [filterMode, setFilterMode] = useState<FilterType>('all');
   const [todos, setTodos] = useState<Todo[]>([]);
 
@@ -68,7 +69,7 @@ function App() {
       <p className="mb-4 text-4xl text-primary-green font-bold">Todo Forest</p>
       <div className="w-[200px] flex justify-between">
         {/* mode 변경 버튼 */}
-        <ModeSwitch
+        <ViewSwitch
           viewMode={viewMode}
           onChange={(mode) => setViewMode(mode)}
         />

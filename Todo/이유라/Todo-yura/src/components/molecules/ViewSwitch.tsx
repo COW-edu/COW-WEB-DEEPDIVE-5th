@@ -1,15 +1,16 @@
 import React from 'react';
 import Button from '../atoms/button';
+import ViewMode from '../../types/viewMode';
 
-interface ModeSwitchProps {
-  viewMode: string;
-  onChange: (mode: string) => void;
+interface ViewSwitchProps {
+  viewMode: ViewMode;
+  onChange: (mode: ViewMode) => void;
 }
-const modes = [
+const modes: { label: string; value: ViewMode }[] = [
   { label: '텃밭보기', value: 'farm' },
   { label: '리스트 보기', value: 'list' },
 ];
-const ModeSwitch = ({ viewMode, onChange }: ModeSwitchProps) => {
+const ViewSwitch = ({ viewMode, onChange }: ViewSwitchProps) => {
   return (
     <>
       {modes.map((mode) => (
@@ -26,4 +27,4 @@ const ModeSwitch = ({ viewMode, onChange }: ModeSwitchProps) => {
   );
 };
 
-export default ModeSwitch;
+export default ViewSwitch;
