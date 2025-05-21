@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { Plus, Github } from 'lucide-react';
-import * as Tabs from '@radix-ui/react-tabs';
+import TabContent from '../components/contents/TabContent';
 import Button from '../components/atomic/Button';
 import Input from '../components/atomic/Input';
 
@@ -11,7 +11,6 @@ const TodoPage = () => {
   const {
     todoList,
     todoContent,
-    setShowTodoContent,
     completedTodoList,
     showTodoContent,
     notCompletedTodoList,
@@ -31,18 +30,6 @@ const TodoPage = () => {
     if (e.key === 'Enter') {
       addTodo();
     }
-  };
-
-  const handleAllTabClick = () => {
-    setShowTodoContent('all');
-  };
-
-  const handleCompleteTabClick = () => {
-    setShowTodoContent('complete');
-  };
-
-  const handleNotCompleteTabClick = () => {
-    setShowTodoContent('incomplete');
   };
 
   return (
@@ -74,31 +61,7 @@ const TodoPage = () => {
           </Button>
         </div>
         <div className="flex flex-row justify-between">
-          <Tabs.Root defaultValue="all" className="w-full ">
-            <Tabs.List className="flex space-x-4 mb-4">
-              <Tabs.Trigger
-                onClick={handleAllTabClick}
-                value="all"
-                className="px-4 py-2 rounded bg-gray-200 data-[state=active]:bg-blue-500 data-[state=active]:text-white"
-              >
-                All
-              </Tabs.Trigger>
-              <Tabs.Trigger
-                onClick={handleCompleteTabClick}
-                value="completed"
-                className="px-4 py-2 rounded bg-gray-200 data-[state=active]:bg-blue-500 data-[state=active]:text-white"
-              >
-                완료
-              </Tabs.Trigger>
-              <Tabs.Trigger
-                onClick={handleNotCompleteTabClick}
-                value="incomplete"
-                className="px-4 py-2 rounded bg-gray-200 data-[state=active]:bg-blue-500 data-[state=active]:text-white"
-              >
-                미완료
-              </Tabs.Trigger>
-            </Tabs.List>
-          </Tabs.Root>
+          <TabContent></TabContent>
         </div>
 
         <div className="space-y-3">

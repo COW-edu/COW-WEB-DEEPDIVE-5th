@@ -1,10 +1,12 @@
 import React from 'react';
 import { useState } from 'react';
 import { TodoListItem } from '../types/todoType';
-const useTodo = () => {
+import { UseTodoReturn } from '../types/todoType';
+import { ShowContent } from '../types/todoType';
+const useTodo = (): UseTodoReturn => {
   const [todoList, setTodoList] = useState<TodoListItem[]>([]);
   const [todoContent, setTodoContent] = useState('');
-  const [showTodoContent, setShowTodoContent] = useState('all');
+  const [showTodoContent, setShowTodoContent] = useState<ShowContent>('all');
 
   //파생 상태라서 상태로 두는게, 아닌 필터함수로 상태 대신 객체화
   const completedTodoList = todoList.filter((item) => item.completed);
