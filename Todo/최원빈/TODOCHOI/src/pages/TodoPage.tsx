@@ -10,7 +10,6 @@ import useTodo from '../hooks/useTodo';
 const TodoPage = () => {
   const {
     todoList,
-    setTodoList,
     todoContent,
     setShowTodoContent,
     completedTodoList,
@@ -44,15 +43,6 @@ const TodoPage = () => {
 
   const handleNotCompleteTabClick = () => {
     setShowTodoContent('incomplete');
-  };
-
-  const handleTextClick = (id: number): void => {
-    console.log('체크바뀜');
-    setTodoList((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, completed: !item.completed } : item
-      )
-    );
   };
 
   return (
@@ -118,7 +108,6 @@ const TodoPage = () => {
                 todoList={todoList}
                 deleteTodo={deleteTodo}
                 toggleTodo={toggleTodo}
-                handleTextClick={handleTextClick}
               ></TodoList>
             </div>
           ) : (
@@ -131,7 +120,6 @@ const TodoPage = () => {
                       todoList={completedTodoList}
                       deleteTodo={deleteTodo}
                       toggleTodo={toggleTodo}
-                      handleTextClick={handleTextClick}
                     ></TodoList>
                   </div>
                 </div>
@@ -143,7 +131,6 @@ const TodoPage = () => {
                       todoList={notCompletedTodoList}
                       deleteTodo={deleteTodo}
                       toggleTodo={toggleTodo}
-                      handleTextClick={handleTextClick}
                     ></TodoList>
                   </div>
                 </div>

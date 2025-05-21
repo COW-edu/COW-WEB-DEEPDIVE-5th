@@ -7,16 +7,9 @@ interface TodoListProps {
   todoList: TodoListItem[]; //조건으로 분기해야하는 todoList에 대한 고찰
   deleteTodo: (id: number) => void;
   toggleTodo: (id: number) => void;
-  handleTextClick: (id: number) => void;
 }
 
-const TodoList = ({
-  todoList,
-
-  deleteTodo,
-  toggleTodo,
-  handleTextClick,
-}: TodoListProps) => {
+const TodoList = ({ todoList, deleteTodo, toggleTodo }: TodoListProps) => {
   return (
     <div>
       {todoList.map((todo) => (
@@ -38,7 +31,7 @@ const TodoList = ({
             className={`text-gray-800 font-medium ${
               todo.completed ? 'line-through text-red-400' : null
             }`}
-            onClick={() => handleTextClick(todo.id)}
+            onClick={() => toggleTodo(todo.id)}
           >
             {todo.text}
           </span>
