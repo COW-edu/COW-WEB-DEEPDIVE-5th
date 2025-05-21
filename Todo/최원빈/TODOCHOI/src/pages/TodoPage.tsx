@@ -1,52 +1,37 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { Plus, Github } from 'lucide-react';
 import * as Tabs from '@radix-ui/react-tabs';
 import Button from '../components/atomic/Button';
 import Input from '../components/atomic/Input';
-import { TodoListItem } from '../types/todoType';
+
 import TodoList from '../components/contents/TodoList';
+import useTodo from '../hooks/useTodo';
 
 const TodoPage = () => {
-  const [todoList, setTodoList] = useState<TodoListItem[]>([]);
-  const [todoContent, setTodoContent] = useState('');
-  const [showTodoContent, setShowTodoContent] = useState('all');
+  const {
+    todoList,
+    setTodoList,
+    todoContent,
+    setShowTodoContent,
+    completedTodoList,
+    showTodoContent,
+    notCompletedTodoList,
+    addTodo,
+    handleInputChange,
+    deleteTodo,
+    toggleTodo,
+  } = useTodo();
 
   const inputFocusRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     inputFocusRef.current?.focus();
   }, []);
-  //파생 상태라서 상태로 두는게, 아닌 필터함수로 상태 대신 객체화
-  const completedTodoList = todoList.filter((item) => item.completed);
-  const notCompletedTodoList = todoList.filter((item) => !item.completed);
 
   const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     e.preventDefault();
     if (e.key === 'Enter') {
       addTodo();
     }
-  };
-
-  const addTodo = (): void => {
-    if (todoContent.trim() === '') return;
-    const newTodo = { id: Date.now(), text: todoContent, completed: false };
-    setTodoList((prev) => [...prev, newTodo]);
-    setTodoContent('');
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTodoContent(e.target.value);
-  };
-
-  const deleteTodo = (id: number): void => {
-    setTodoList((prev) => prev.filter((todo) => todo.id !== id));
-  };
-
-  const toggleTodo = (id: number): void => {
-    setTodoList((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, completed: !item.completed } : item
-      )
-    );
   };
 
   const handleAllTabClick = () => {
