@@ -5,20 +5,22 @@ import Button from '../components/atomic/Button';
 import Input from '../components/atomic/Input';
 
 import TodoList from '../components/contents/TodoList';
-import useTodo from '../hooks/useTodo';
+import { useTodoStore } from '../store/useTodoStore';
 
 const TodoPage = () => {
   const {
     todoList,
     todoContent,
-    completedTodoList,
     showTodoContent,
-    notCompletedTodoList,
     addTodo,
-    handleInputChange,
     deleteTodo,
     toggleTodo,
-  } = useTodo();
+    handleInputChange,
+  } = useTodoStore();
+
+  // derived state
+  const completedTodoList = todoList.filter((item) => item.completed);
+  const notCompletedTodoList = todoList.filter((item) => !item.completed);
 
   const inputFocusRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
